@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "0.1",
+  "rulesVersion": "p0-2026-10-09",
+  "purpose": "acceptance_catalog_not_executed",
+  "snapshots": [
+    {
+      "id": "mixed", "runId": "fixture-run-1", "stateVersion": 1, "screenVersion": 1, "screenKind": "upgrade", "characterId": "warrior",
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "inventory": [{ "instanceId": "burn-1", "itemId": "burn", "level": 2, "components": [] }, { "instanceId": "staff-1", "itemId": "magic-staff", "level": 1, "components": [] }],
+      "candidates": [
+        { "id": "iron-choice", "order": 0, "action": "acquire", "itemId": "iron", "inputInstanceIds": [], "targetLevel": 1, "recipeId": null, "variantIndex": null },
+        { "id": "quake-choice", "order": 1, "action": "acquire", "itemId": "earthquake", "inputInstanceIds": [], "targetLevel": 1, "recipeId": null, "variantIndex": null },
+        { "id": "bow-choice", "order": 2, "action": "acquire", "itemId": "shortbow", "inputInstanceIds": [], "targetLevel": 1, "recipeId": null, "variantIndex": null },
+        { "id": "burn-upgrade", "order": 3, "action": "upgrade", "itemId": "burn", "inputInstanceIds": ["burn-1"], "targetLevel": 3, "recipeId": null, "variantIndex": null }
+      ]
+    },
+    {
+      "id": "freeze-context", "runId": "fixture-run-2", "stateVersion": 1, "screenVersion": 1, "screenKind": "upgrade", "characterId": "warrior",
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "inventory": [{ "instanceId": "freeze-1", "itemId": "freeze", "level": 2, "components": [] }, { "instanceId": "spike-1", "itemId": "frozen-spike", "level": 1, "components": [] }],
+      "candidates": [
+        { "id": "wind-choice", "order": 0, "action": "acquire", "itemId": "wind", "inputInstanceIds": [], "targetLevel": 1, "recipeId": null, "variantIndex": null },
+        { "id": "lightning-choice", "order": 1, "action": "acquire", "itemId": "lightning", "inputInstanceIds": [], "targetLevel": 1, "recipeId": null, "variantIndex": null }
+      ]
+    },
+    {
+      "id": "material-context", "runId": "fixture-run-3", "stateVersion": 1, "screenVersion": 1, "screenKind": "evolution", "characterId": "warrior",
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "inventory": [{ "instanceId": "a-1", "itemId": "fixture-a", "level": 3, "components": [] }, { "instanceId": "a-2", "itemId": "fixture-a", "level": 3, "components": [] }, { "instanceId": "b-1", "itemId": "fixture-b", "level": 3, "components": [] }],
+      "candidates": [{ "id": "combine-choice", "order": 0, "action": "evolve", "itemId": "fixture-c", "inputInstanceIds": ["a-1", "a-2", "b-1"], "targetLevel": 1, "recipeId": "fixture-combine", "variantIndex": 0 }]
+    },
+    {
+      "id": "passive-context", "runId": "fixture-run-4", "stateVersion": 1, "screenVersion": 1, "screenKind": "evolution", "characterId": "warrior",
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "inventory": [{ "instanceId": "p-1", "itemId": "fixture-passive-a", "level": 3, "components": [] }, { "instanceId": "p-2", "itemId": "fixture-passive-a", "level": 3, "components": [] }],
+      "candidates": [{ "id": "passive-evolve", "order": 0, "action": "evolve", "itemId": "fixture-passive-b", "inputInstanceIds": ["p-1", "p-2"], "targetLevel": 1, "recipeId": "fixture-passive", "variantIndex": 0 }]
+    },
+    {
+      "id": "fusion-context", "runId": "fixture-run-5", "stateVersion": 1, "screenVersion": 1, "screenKind": "fusion", "characterId": "warrior",
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "inventory": [{ "instanceId": "burn-1", "itemId": "burn", "level": 3, "components": [] }, { "instanceId": "quake-1", "itemId": "earthquake", "level": 3, "components": [] }],
+      "candidates": [{ "id": "fusion-choice", "order": 0, "action": "fuse", "itemId": null, "inputInstanceIds": ["burn-1", "quake-1"], "targetLevel": null, "recipeId": null, "variantIndex": null }]
+    }
+  ],
+  "scenarios": [
+    { "id": "S01", "snapshotId": "mixed", "title": "弹珠、被动与已有物品升级一起评估", "variation": "原样输入；离线参考模式。", "assertions": ["保留全部四个候选及画面顺序", "每项具有独立分析状态", "未知逐级收益不伪造分数"], "coverage": ["mixed", "unknown"] },
+    { "id": "S02", "snapshotId": "mixed", "title": "角色差异影响直伤和范围评价", "variation": "复制快照，将 characterId 改为 sisyphus；只检查已定义机制的评价分项。", "assertions": ["direct_hit 分项因直伤禁用降低", "area_damage 分项体现角色范围机制", "不据此强制断言整体首选"], "coverage": ["character", "unknown"] },
+    { "id": "S03", "snapshotId": "mixed", "title": "已有魔法杖提供范围协同", "variation": "与移除 staff-1 后的快照对比。", "assertions": ["earthquake 的 area-staff 协同理由只在持有时出现", "权重未定义时不输出精确协同分数"], "coverage": ["synergy"] },
+    { "id": "S04", "snapshotId": "freeze-context", "title": "冰刺协同具有前置条件", "variation": "保持 spike-1，移除 freeze-1 再对比。", "assertions": ["没有冻结来源时不宣称已触发冰刺协同", "保留未来获得冻结来源的条件提示"], "coverage": ["synergy", "conditional"] },
+    { "id": "S05", "snapshotId": "freeze-context", "title": "替代配方保留两种路径", "variation": "原样输入；查询 blizzard-path。", "assertions": ["freeze+wind 与 freeze+lightning 是两套替代材料", "不合并成三材料配方"], "coverage": ["alternative"] },
+    { "id": "S06", "snapshotId": "mixed", "title": "炸弹到核弹的条件规划", "variation": "对 iron-choice 查看后续结构。", "assertions": ["记录 bomb-path 到 nuclear-path 的两步关系", "poison 仍为缺失材料", "未知消耗与等级条件时不宣称当前可执行"], "coverage": ["multistep", "unknown"] },
+    { "id": "S07", "snapshotId": "mixed", "title": "升级不会增加物品实例", "variation": "模拟 burn-upgrade；等级操作以快照为准，收益保持未知。", "assertions": ["burn-1 等级变为 3", "实例数和槽位占用不变", "不假定每级固定收益"], "coverage": ["upgrade"] },
+    { "id": "S08", "snapshotId": "material-context", "title": "等级未满足不能立即进化", "variation": "将 a-2 等级改为 2。", "assertions": ["fixture-combine 缺一次升级", "combine-choice 当前非法", "材料存在不等于可进化"], "coverage": ["level", "legality"] },
+    { "id": "S09", "snapshotId": "material-context", "title": "相同材料需要不同实例", "variation": "删除 a-2；候选输入同步改为 a-1、b-1。", "assertions": ["缺少一个 fixture-a", "禁止重复使用 a-1 满足数量二"], "coverage": ["quantity", "legality"] },
+    { "id": "S10", "snapshotId": "material-context", "title": "三个材料进化后的状态", "variation": "原样执行 combine-choice（人工规则）。", "assertions": ["消耗 a-1、a-2、b-1", "得到一个等级一的 fixture-c", "弹珠占用从三变一", "原始快照不变"], "coverage": ["consumption", "multimaterial", "slots"] },
+    { "id": "S11", "snapshotId": "material-context", "title": "循环配方与材料消耗", "variation": "查询 fixture-combine 与 fixture-return 的可达路径。", "assertions": ["不能循环无限展开", "b-1 消耗后不能再次当作已有材料", "人工等级一结果不能立刻用于要求等级三的后续配方"], "coverage": ["cycle", "consumption"] },
+    { "id": "S12", "snapshotId": "passive-context", "title": "被动进化使用被动槽位", "variation": "原样执行 passive-evolve（人工规则）。", "assertions": ["消耗两个被动实例并得到一个被动", "弹珠槽位不受影响"], "coverage": ["passive_evolution", "slots"] },
+    { "id": "S13", "snapshotId": "mixed", "title": "弹珠满槽时仍可升级与选被动", "variation": "将快照 ball 槽位限制设为 1；这是人工满槽条件，不代表角色默认槽位。", "assertions": ["iron-choice 和 quake-choice 不可获取", "burn-upgrade 不因满槽而非法", "bow-choice 使用独立被动槽"], "coverage": ["slots", "legality"] },
+    { "id": "S14", "snapshotId": "mixed", "title": "没有进化路线仍可评价即时收益", "variation": "查看 bow-choice；本样本未收录短弓配方。", "assertions": ["无已收录路线不等于效用零", "缺失数据不宣称游戏中绝无路线"], "coverage": ["no_route", "unknown"] },
+    { "id": "S15", "snapshotId": "fusion-context", "title": "融合机制未知时不模拟结果", "variation": "原样输入。", "assertions": ["fusion-choice 状态为 unassessed", "不推断结果等级和槽位变化", "不输出确定推荐"], "coverage": ["fusion", "unknown"] },
+    { "id": "S16", "snapshotId": "mixed", "title": "存在未知候选时限制推荐范围", "variation": "加入一个 itemId=null、action=unknown 的候选，保留原四项。", "assertions": ["未知候选仍占原画面位置", "仅允许已评估项中推荐", "不把未知项当作零分"], "coverage": ["unknown", "mixed"] },
+    { "id": "S17", "snapshotId": "mixed", "title": "等级收益不是线性增长", "variation": "将 burn-1 替换为等级一的 fixture-a，将 burn-upgrade 替换为升级至等级二的 fixture-a。", "assertions": ["人工等级效用增量为 5-2=3", "升级至等级三时增量为 9-5=4", "不把这组数字用于真实弹珠"], "coverage": ["upgrade", "nonlinear"] },
+    { "id": "S18", "snapshotId": "mixed", "title": "长短期收益采用固定校准参数", "variation": "P1 使用独立人工效用样本，比较即时收益大且无路线的操作与缺多个材料的长链。", "assertions": ["存在立即收益胜过长链的参数场景", "缺失材料成本增加时路线效用不得提高", "不靠路线条数给候选加分"], "coverage": ["scoring", "opportunity_cost"] },
+    { "id": "S19", "snapshotId": "mixed", "title": "并列和重复输入保持稳定", "variation": "P1 人工候选给定相同效用，再改变画面顺序；每份输入重复计算。", "assertions": ["同一输入的结果一致", "并列规则在文档中明确", "取整不改变原始效用排序"], "coverage": ["tie", "determinism"] },
+    { "id": "S20", "snapshotId": "mixed", "title": "刷新和换局后丢弃旧结果", "variation": "分别递增 screenVersion、stateVersion，或改变 runId。", "assertions": ["任一版本字段变化则旧结果不适用", "候选数量与顺序变化不复用旧标记"], "coverage": ["stale_result", "lifecycle"] }
+  ]
+}

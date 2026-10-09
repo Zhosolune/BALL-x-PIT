@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "0.1",
+  "rulesVersion": "p0-2026-10-09",
+  "purpose": "offline_preparation_only",
+  "supportedGameVersion": null,
+  "sources": [
+    {
+      "id": "helper",
+      "url": "https://github.com/sakiooi1/ballbylon-helper/blob/aa721a35709e069f5f5cbfa3c4da6d6841aa7691/game-data.js",
+      "revision": "aa721a35709e069f5f5cbfa3c4da6d6841aa7691",
+      "accessedAt": "2026-10-09",
+      "declaredDataVersion": "The Naturalist Update 2026-08-06（来源声明，未与游戏核对）",
+      "usage": "游戏数据仅非商业分享；保留来源和声明；不属于代码 MIT 授权范围。",
+      "noticeUrl": "https://github.com/sakiooi1/ballbylon-helper/blob/aa721a35709e069f5f5cbfa3c4da6d6841aa7691/NOTICE.md"
+    },
+    {
+      "id": "fixture",
+      "url": "local:docs/p0-rules.md",
+      "revision": "p0-2026-10-09",
+      "accessedAt": "2026-10-09",
+      "declaredDataVersion": "人工算法场景，与游戏版本无关",
+      "usage": "只验证数据表达和算法边界，不作为真实游戏配方。",
+      "noticeUrl": null
+    }
+  ],
+  "characters": [
+    {
+      "id": "warrior",
+      "name": "The Warrior",
+      "displayName": "战士（参考译名）",
+      "gameSlug": null,
+      "sourceId": "helper",
+      "verification": "community_reported",
+      "mechanics": { "directHitEnabled": true, "areaDamageMultiplier": 1 },
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "unverified": ["内部角色 ID", "目标版本槽位基准", "逐级收益"]
+    },
+    {
+      "id": "sisyphus",
+      "name": "The Makeshift Sisyphus",
+      "displayName": "临时西西弗斯（参考译名）",
+      "gameSlug": null,
+      "sourceId": "helper",
+      "verification": "community_reported",
+      "mechanics": { "directHitEnabled": false, "areaDamageMultiplier": 4 },
+      "slotLimits": { "ball": 5, "passive": 5 },
+      "unverified": ["内部角色 ID", "范围倍率适用范围", "被动能否改变直伤限制", "槽位和等级规则"]
+    }
+  ],
+  "items": [
+    { "id": "burn", "name": "Burn", "displayName": "燃烧", "kind": "ball", "tags": ["burn", "status"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "iron", "name": "Iron", "displayName": "铁", "kind": "ball", "tags": ["direct_hit"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "poison", "name": "Poison", "displayName": "毒", "kind": "ball", "tags": ["poison", "status"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "earthquake", "name": "Earthquake", "displayName": "地震", "kind": "ball", "tags": ["area_damage"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "freeze", "name": "Freeze", "displayName": "冰冻", "kind": "ball", "tags": ["freeze", "control"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "wind", "name": "Wind", "displayName": "风", "kind": "ball", "tags": ["pierce", "control"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "lightning", "name": "Lightning", "displayName": "闪电", "kind": "ball", "tags": ["area_damage"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "bomb", "name": "Bomb", "displayName": "炸弹", "kind": "ball", "tags": ["area_damage"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "nuclear-bomb", "name": "Nuclear Bomb", "displayName": "核弹", "kind": "ball", "tags": ["area_damage"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "blizzard", "name": "Blizzard", "displayName": "暴雪", "kind": "ball", "tags": ["freeze", "control", "area_damage"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "magic-staff", "name": "Magic Staff", "displayName": "魔法杖", "kind": "passive", "tags": ["boost_area"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "shortbow", "name": "Shortbow", "displayName": "短弓", "kind": "passive", "tags": ["attack_speed"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "frozen-spike", "name": "Frozen Spike", "displayName": "冰刺", "kind": "passive", "tags": ["trigger_freeze"], "maxLevel": null, "gameSlug": null, "sourceId": "helper", "verification": "community_reported", "levelUtility": null },
+    { "id": "fixture-a", "name": "Fixture A", "displayName": "人工材料 A", "kind": "ball", "tags": [], "maxLevel": 3, "gameSlug": null, "sourceId": "fixture", "verification": "synthetic", "levelUtility": [2, 5, 9] },
+    { "id": "fixture-b", "name": "Fixture B", "displayName": "人工材料 B", "kind": "ball", "tags": [], "maxLevel": 3, "gameSlug": null, "sourceId": "fixture", "verification": "synthetic", "levelUtility": [3, 4, 8] },
+    { "id": "fixture-c", "name": "Fixture C", "displayName": "人工结果 C", "kind": "ball", "tags": [], "maxLevel": 3, "gameSlug": null, "sourceId": "fixture", "verification": "synthetic", "levelUtility": [11, 13, 16] },
+    { "id": "fixture-passive-a", "name": "Fixture Passive A", "displayName": "人工被动 A", "kind": "passive", "tags": [], "maxLevel": 3, "gameSlug": null, "sourceId": "fixture", "verification": "synthetic", "levelUtility": [4, 7, 10] },
+    { "id": "fixture-passive-b", "name": "Fixture Passive B", "displayName": "人工被动 B", "kind": "passive", "tags": [], "maxLevel": 3, "gameSlug": null, "sourceId": "fixture", "verification": "synthetic", "levelUtility": [14, 17, 20] }
+  ],
+  "recipes": [
+    { "id": "bomb-path", "resultItemId": "bomb", "sourceId": "helper", "verification": "community_reported", "variants": [[{ "itemId": "burn", "quantity": 1 }, { "itemId": "iron", "quantity": 1 }]], "requirements": { "minimumLevel": null, "consumesInputs": null, "resultLevel": null, "fusionInputsAllowed": null } },
+    { "id": "nuclear-path", "resultItemId": "nuclear-bomb", "sourceId": "helper", "verification": "community_reported", "variants": [[{ "itemId": "bomb", "quantity": 1 }, { "itemId": "poison", "quantity": 1 }]], "requirements": { "minimumLevel": null, "consumesInputs": null, "resultLevel": null, "fusionInputsAllowed": null } },
+    { "id": "blizzard-path", "resultItemId": "blizzard", "sourceId": "helper", "verification": "community_reported", "variants": [[{ "itemId": "freeze", "quantity": 1 }, { "itemId": "wind", "quantity": 1 }], [{ "itemId": "freeze", "quantity": 1 }, { "itemId": "lightning", "quantity": 1 }]], "requirements": { "minimumLevel": null, "consumesInputs": null, "resultLevel": null, "fusionInputsAllowed": null } },
+    { "id": "fixture-combine", "resultItemId": "fixture-c", "sourceId": "fixture", "verification": "synthetic", "variants": [[{ "itemId": "fixture-a", "quantity": 2 }, { "itemId": "fixture-b", "quantity": 1 }]], "requirements": { "minimumLevel": 3, "consumesInputs": true, "resultLevel": 1, "fusionInputsAllowed": false } },
+    { "id": "fixture-return", "resultItemId": "fixture-a", "sourceId": "fixture", "verification": "synthetic", "variants": [[{ "itemId": "fixture-c", "quantity": 1 }, { "itemId": "fixture-b", "quantity": 1 }]], "requirements": { "minimumLevel": 3, "consumesInputs": true, "resultLevel": 1, "fusionInputsAllowed": false } },
+    { "id": "fixture-passive", "resultItemId": "fixture-passive-b", "sourceId": "fixture", "verification": "synthetic", "variants": [[{ "itemId": "fixture-passive-a", "quantity": 2 }]], "requirements": { "minimumLevel": 3, "consumesInputs": true, "resultLevel": 1, "fusionInputsAllowed": false } }
+  ],
+  "synergies": [
+    { "id": "area-staff", "providerItemId": "magic-staff", "targetTag": "area_damage", "sourceId": "helper", "verification": "community_reported", "weight": null },
+    { "id": "freeze-spike", "providerItemId": "frozen-spike", "targetTag": "freeze", "sourceId": "helper", "verification": "community_reported", "weight": null }
+  ],
+  "fusion": { "verification": "pending", "sourceId": null, "compositionReadable": null, "levelPolicy": null, "recipeEligibility": null, "slotPolicy": null },
+  "scoring": { "version": "design-only-0.1", "weights": null, "displayMapping": null, "closeThreshold": null, "maxRouteDepth": 3, "maxStatesPerDepth": 20, "unknownPolicy": "partial_or_unassessed" }
+}
